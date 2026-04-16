@@ -1,0 +1,38 @@
+# ztts example configuration
+# mTLS-only: all clients must present a valid certificate signed by a trusted CA.
+
+server:
+  listen_addr: ":8443"
+  tls_cert: "certs/server.crt"
+  tls_key: "certs/server.key"
+  # issuer: "https://ztts.example.com"    # optional; defaults to https://<listen_addr>
+
+auth:
+  # CA bundle: list of PEM files or directories containing CA certificates
+  # for client certificate verification (root + intermediate CAs).
+  ca_bundle:
+    - "certs/ca.crt"
+  # crl_url: "https://step-ca.example.com/1.0/crl"   # optional: CRL endpoint
+  # crl_path: "certs/crl.der"                          # optional: local CRL file
+  # crl_cache_duration: 5m                              # optional: CRL cache TTL
+
+# Each profile points to a directory of .rules rule files
+# in human-readable (advanced) SPOCP format.
+# SPOCP queries include cert metadata: (cert-serial ...), (org ...), (ou ...).
+profiles:
+  service-access:
+    rules_dir: "rules/service-access"
+    validity: 1h
+    signing_key_file: "keys/signing.key.pem"
+    scopes:
+      - "api:read"
+      - "api:write"
+
+  user-delegation:
+    rules_dir: "rules/user-delegation"
+    validity: 30m
+    signing_key_file: "keys/signing.key.pem"
+
+revocation:
+  store_path: "data/revoked.json"
+  cleanup_interval: 5m

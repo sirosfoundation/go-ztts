@@ -1,0 +1,2 @@
+# Services with a bootstrap scope can request service access tokens
+(ztts (profile service-access) (iss) (sub) (scopes bootstrap))

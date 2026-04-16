@@ -1,0 +1,2 @@
+# Allow user delegation when userid and tenant are provided
+(ztts (profile user-delegation) (iss) (sub) (userid) (tenant))
