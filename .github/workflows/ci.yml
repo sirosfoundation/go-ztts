@@ -42,7 +42,7 @@ jobs:
         echo "Total coverage: ${COVERAGE}%"
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
       if: matrix.go-version == '1.26.x'
       with:
         files: ./coverage.out
